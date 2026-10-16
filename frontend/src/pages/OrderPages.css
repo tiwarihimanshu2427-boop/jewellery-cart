@@ -1,0 +1,255 @@
+.orders-page {
+  min-height: 70vh;
+  padding: 64px 24px 90px;
+  background: linear-gradient(135deg, #fffaf4, #f4e9dc);
+  color: #382a21;
+}
+
+.orders-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.orders-heading,
+.order-confirmation {
+  margin-bottom: 38px;
+  text-align: center;
+}
+
+.orders-heading > span,
+.order-confirmation > span {
+  color: #a47b4d;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.orders-heading h1,
+.order-confirmation h1 {
+  margin: 14px 0 10px;
+  color: #34261f;
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+}
+
+.orders-heading p,
+.order-confirmation > p {
+  color: #8d7765;
+}
+
+.orders-message,
+.orders-empty,
+.order-detail-card,
+.order-card {
+  background: #fff;
+  border: 1px solid #ead8c5;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(72, 43, 22, 0.05);
+}
+
+.orders-message {
+  padding: 24px;
+}
+
+.orders-empty {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.orders-empty > svg {
+  color: #a17a4e;
+}
+
+.orders-empty h2 {
+  margin: 14px 0 8px;
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.orders-empty p {
+  color: #8d7765;
+}
+
+.orders-error {
+  color: #9c4037;
+}
+
+.orders-list {
+  display: grid;
+  gap: 14px;
+}
+
+.order-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 25px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px rgba(72, 43, 22, 0.1);
+}
+
+.order-label {
+  color: #5f4938;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.order-card p {
+  margin: 8px 0 0;
+  color: #8d7765;
+  font-size: 13px;
+}
+
+.order-card > strong,
+.order-total strong {
+  color: #966b40;
+}
+
+.order-status {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #f5eee5;
+  border-radius: 20px;
+  color: #795b3c;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.orders-action,
+.orders-secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid #987044;
+  border-radius: 7px;
+  color: #fff;
+  background: #987044;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.orders-secondary-action {
+  color: #795b3c;
+  background: transparent;
+}
+
+.orders-back {
+  display: inline-block;
+  margin-top: 25px;
+  color: #795b3c;
+  text-decoration: none;
+}
+
+.order-confirmation {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.order-confirmation-icon {
+  display: grid;
+  width: 66px;
+  height: 66px;
+  margin: 0 auto 20px;
+  place-items: center;
+  border-radius: 50%;
+  background: #e8f2e6;
+  color: #55794e;
+}
+
+.order-detail-card {
+  margin: 32px 0 24px;
+  padding: 25px;
+  text-align: left;
+}
+
+.order-detail-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 20px;
+  color: #987044;
+}
+
+.order-detail-heading div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #39291f;
+}
+
+.order-items {
+  border-top: 1px solid #eee2d6;
+}
+
+.order-item,
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee2d6;
+  color: #6f5b49;
+}
+
+.order-item strong {
+  white-space: nowrap;
+  color: #39291f;
+}
+
+.order-total {
+  border-bottom: 0;
+  color: #39291f;
+  font-weight: 700;
+}
+
+.order-payment {
+  margin: 0;
+  color: #8d7765;
+  font-size: 13px;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .orders-page {
+    padding: 42px 15px 65px;
+  }
+
+  .order-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 18px;
+  }
+
+  .order-detail-card {
+    padding: 18px;
+  }
+
+  .order-detail-heading div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .order-item {
+    font-size: 13px;
+  }
+}

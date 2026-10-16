@@ -1,0 +1,172 @@
+/* JEWELLERY CART - PREMIUM ACCOUNT DASHBOARD */
+
+.account-page {
+  min-height: 75vh;
+  padding: 70px 24px 100px;
+  background: linear-gradient(135deg, #fffaf4, #f4e9dc);
+}
+
+.account-container {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.account-heading {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.account-heading > span {
+  color: #a47b4d;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.account-heading h1 {
+  margin: 18px 0 12px;
+  color: #34261f;
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 4vw, 50px);
+  font-weight: 400;
+}
+
+.account-heading p {
+  color: #8d7765;
+  font-size: 16px;
+}
+
+.account-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 35px;
+  background: #fff;
+  border: 1px solid #ead8c5;
+  border-radius: 16px;
+  box-shadow: 0 15px 45px rgba(72, 43, 22, 0.06);
+}
+
+.account-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  background: #f5e8d9;
+  border-radius: 50%;
+  color: #9e7547;
+}
+
+.account-profile-card h2 {
+  margin: 0 0 12px;
+  color: #39291f;
+  font-family: Georgia, serif;
+  font-size: 27px;
+  font-weight: 400;
+}
+
+.account-profile-card p {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  color: #8b7563;
+  font-size: 15px;
+}
+
+.account-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-left: auto;
+  padding: 13px 23px;
+  background: #fff;
+  border: 1px solid #b48c60;
+  border-radius: 8px;
+  color: #8c6339;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.account-logout:hover {
+  background: #9c754c;
+  color: #fff;
+}
+
+.account-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 35px;
+}
+
+.account-links a {
+  display: block;
+  padding: 45px 25px;
+  background: #fff;
+  border: 1px solid #ead8c5;
+  border-radius: 14px;
+  color: #a17a4e;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(72, 43, 22, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.account-links a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(72, 43, 22, 0.1);
+}
+
+.account-links a > svg {
+  margin-bottom: 18px;
+}
+
+.account-links h3 {
+  margin: 0 0 12px;
+  color: #38291f;
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.account-links p {
+  margin: 0;
+  color: #8c7868;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .account-page {
+    padding: 45px 16px 65px;
+  }
+
+  .account-profile-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .account-profile-card p {
+    justify-content: center;
+    overflow-wrap: anywhere;
+  }
+
+  .account-logout {
+    margin: 15px 0 0;
+  }
+
+  .account-links {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .account-links a {
+    padding: 35px 20px;
+  }
+}
