@@ -4,13 +4,12 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db");
+
 // Existing Routes
 const authRoutes = require("./routes/authRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const adminProductRoutes = require("./routes/adminProductRoutes");
-
-// Razorpay Test Payment Routes
 const paymentRoutes = require("./routes/paymentRoutes");
 
 const app = express();
@@ -19,23 +18,28 @@ const app = express();
 // CORS CONFIGURATION
 // ===============================
 
-const allowedOrigins = (
-  process.env.FRONTEND_URL ||
-  "http://localhost:5173"
-)
-  .split(",")
-  .map((origin) => origin.trim());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:4173",
+  "https://jewellery-cart.vercel.app",
+  ...(process.env.FRONTEND_URL || "")
+    .split(",")
+    .map((url) => url.trim())
+    .filter(Boolean),
+].map((url) => url.replace(/\/$/, ""));
 
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        allowedOrigins.includes(origin.replace(/\/$/, ""))
+      ) {
         return callback(null, true);
       }
 
-      return callback(
-        new Error("Not allowed by CORS")
-      );
+      console.error("CORS blocked origin:", origin);
+      return callback(new Error("Not allowed by CORS"));
     },
     methods: [
       "GET",
@@ -43,12 +47,13 @@ app.use(
       "PUT",
       "PATCH",
       "DELETE",
-      "OPTIONS"
+      "OPTIONS",
     ],
     allowedHeaders: [
       "Content-Type",
-      "Authorization"
-    ]
+      "Authorization",
+    ],
+    credentials: true,
   })
 );
 
@@ -62,36 +67,11 @@ app.use(express.json({ limit: "1mb" }));
 // API ROUTES
 // ===============================
 
-// Customer Authentication
 app.use("/api/auth", authRoutes);
-
-// Customer Orders
 app.use("/api/orders", orderRoutes);
-
-// Admin Routes
 app.use("/api/admin", adminRoutes);
-
-// Admin Products
-app.use(
-  "/api/admin/products",
-  adminProductRoutes
-);
-
-// Razorpay Test Payment
+app.use("/api/admin/products", adminProductRoutes);
 app.use("/api/payments", paymentRoutes);
-
-// ===============================
-// POSTGRESQL CONNECTION
-// ===============================
-
-
-
-pool.on("error", (error) => {
-  console.error(
-    "Unexpected PostgreSQL error:",
-    error.message
-  );
-});
 
 // ===============================
 // HOME API
@@ -101,7 +81,7 @@ app.get("/", (req, res) => {
   res.json({
     success: true,
     message: "Jewellery Shop Backend Running",
-    payment_mode: "Razorpay Test Mode"
+    payment_mode: "Razorpay Test Mode",
   });
 });
 
@@ -116,7 +96,7 @@ app.get("/api/health", async (req, res) => {
     res.json({
       success: true,
       database: "connected",
-      message: "Jewellery Shop API working"
+      message: "Jewellery Shop API working",
     });
   } catch (error) {
     console.error(
@@ -127,7 +107,7 @@ app.get("/api/health", async (req, res) => {
     res.status(503).json({
       success: false,
       database: "disconnected",
-      message: "Database connection failed"
+      message: "Database connection failed",
     });
   }
 });
@@ -138,8 +118,7 @@ app.get("/api/health", async (req, res) => {
 
 app.get("/api/products", async (req, res) => {
   try {
-    const result = await pool.query(
-      `
+    const result = await pool.query(`
       SELECT
         id,
         name,
@@ -152,8 +131,7 @@ app.get("/api/products", async (req, res) => {
       FROM products
       WHERE is_active = true
       ORDER BY id DESC
-      `
-    );
+    `);
 
     res.json(result.rows);
   } catch (error) {
@@ -164,7 +142,7 @@ app.get("/api/products", async (req, res) => {
 
     res.status(500).json({
       success: false,
-      message: "Unable to load products"
+      message: "Unable to load products",
     });
   }
 });
@@ -176,7 +154,7 @@ app.get("/api/products", async (req, res) => {
 app.use("/api", (req, res) => {
   res.status(404).json({
     success: false,
-    message: "API route not found"
+    message: "API route not found",
   });
 });
 
@@ -185,14 +163,16 @@ app.use("/api", (req, res) => {
 // ===============================
 
 app.use((err, req, res, next) => {
-  console.error(
-    "Backend error:",
-    err.message
-  );
+  console.error("Backend error:", err.message);
 
-  res.status(500).json({
+  res.status(
+    err.message === "Not allowed by CORS" ? 403 : 500
+  ).json({
     success: false,
-    message: "Internal server error"
+    message:
+      err.message === "Not allowed by CORS"
+        ? "Origin not allowed"
+        : "Internal server error",
   });
 });
 
@@ -206,14 +186,8 @@ app.listen(PORT, () => {
   console.log("================================");
   console.log(" JEWELLERY CART BACKEND");
   console.log("================================");
-  console.log(
-    `Server running on http://localhost:${PORT}`
-  );
-  console.log(
-    `Health API: http://localhost:${PORT}/api/health`
-  );
-  console.log(
-    `Payment API: http://localhost:${PORT}/api/payments`
-  );
+  console.log(`Server running on port ${PORT}`);
+  console.log(`Health API: /api/health`);
+  console.log(`Products API: /api/products`);
   console.log("================================");
 });
